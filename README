@@ -1,0 +1,32 @@
+Store: A simple javascript wrapper for local storage
+----------------------------------------------------
+
+Specifically, Store is a javascript object wrapper for local storage which is geared towards caching (temp data) and saving of settings (perm data).
+
+Usage:
+------
+
+Include <script type="text/javascript" src="/path/to/Store.js"></script> in your HTML.
+
+Then just call one of the public functions that exposes the two namespaces: settings or cache...
+
+Store.cache('something', {'first':'mike', 'last':'flynn'}, 3600); // Key, value, ttl in seconds
+=> true on success
+
+var data = Store.cache('something');
+=> {'first':'mike', 'last':'flynn'}
+=> false (once ttl expires)
+
+Note: The ttl can be set to 0, or left off which is treated as a cache with no expiration.
+
+Store.clear_cache(); // Dumps everything in the "cache" namespace.
+=> true
+
+For "settings":
+Store.setting('thing', 'on'); // no ttl for settings.
+
+var setting = Store.setting('thing');
+
+var all_settings = Store.all_settings();
+
+Of course, you could add any number of public functions that utlize a new namespace in the local storage as well since all the private methods are generic.

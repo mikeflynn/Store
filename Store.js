@@ -37,7 +37,11 @@ var Store = (function(){
 		}
 
 		var ttl = 0;
-		if(typeof(ttl_seconds) != 'undefined' && ttl_seconds > 0) {
+		if(typeof(ttl_seconds) != 'undefined') {
+			ttl_seconds = default_ttl;
+		}
+		
+		if(ttl_seconds > 0) {
 			var d = new Date();
 			ttl = d.getTime() + (ttl_seconds * 1000);
 		}

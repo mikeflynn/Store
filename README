@@ -30,3 +30,8 @@ var setting = Store.setting('thing');
 var all_settings = Store.all_settings();
 
 Of course, you could add any number of public functions that utlize a new namespace in the local storage as well since all the private methods are generic.
+
+To Do:
+------
+1. Check if localStorage is availale on this browser.
+2. If localStorage isn't available, fall back to cookie storage.

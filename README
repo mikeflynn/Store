@@ -17,7 +17,7 @@ var data = Store.cache('something');
 => {'first':'mike', 'last':'flynn'}
 => false (once ttl expires)
 
-Note: The ttl can be set to 0, or left off which is treated as a cache with no expiration.
+Note: If the ttl is set to 0 the data is treated as a cache with no expiration, but if the ttl param is just not passed in, then it defaults to 1 hour.
 
 Store.clear_cache(); // Dumps everything in the "cache" namespace.
 => true

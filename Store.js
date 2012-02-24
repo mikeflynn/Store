@@ -150,8 +150,12 @@ var Store = (function(){
 			return clear_all('settings');
 		},
 
-		clear_cache: function() {
-			return clear_all('cache');
+		clear_cache: function(key) {
+			if(typeof(key) === 'undefined') {
+				return clear_all('cache');
+			} else {
+				return set('cache', key, false, 0);
+			}
 		}
 	}
 })();

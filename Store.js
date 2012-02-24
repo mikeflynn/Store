@@ -40,7 +40,7 @@ var Store = (function(){
 		if(typeof(ttl_seconds) != 'undefined') {
 			ttl_seconds = default_ttl;
 		}
-		
+
 		if(ttl_seconds > 0) {
 			var d = new Date();
 			ttl = d.getTime() + (ttl_seconds * 1000);
@@ -73,6 +73,18 @@ var Store = (function(){
 		return false;
 	};
 
+	var remove = function(namespace, key) {
+		var cache = get_namespace_data(namespace);
+		if(cache.hasOwnProperty(key)) {
+			console.log("FOUND IT!");
+			delete cache[key];
+			set_namespace_data(namespace, cache);
+			return true;
+		}
+
+		return false;
+	};
+
 	var clear_all = function(namespace) {
 		if(is_namespace(namespace) === true) {
 			window.localStorage.removeItem(namespace);
@@ -83,9 +95,14 @@ var Store = (function(){
 	};
 
 	var get_all = function(namespace) {
-		var data = get_namespace_data(namespace);
-		if(data) {
-			return data;
+		var cache = get_namespace_data(namespace);
+		
+		if(cache) {
+			var list = {};
+			for(var x in cache) {
+				list[x] = cache[x]['data'];
+			}
+			return list;
 		}
 
 		return false;	
@@ -154,7 +171,7 @@ var Store = (function(){
 			if(typeof(key) === 'undefined') {
 				return clear_all('cache');
 			} else {
-				return set('cache', key, false, 0);
+				return remove('cache', key);
 			}
 		}
 	}

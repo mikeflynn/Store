@@ -37,7 +37,7 @@ var Store = (function(){
 		}
 
 		var ttl = 0;
-		if(typeof(ttl_seconds) != 'undefined') {
+		if(typeof(ttl_seconds) === 'undefined') {
 			ttl_seconds = default_ttl;
 		}
 

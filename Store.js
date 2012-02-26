@@ -108,17 +108,6 @@ var Store = (function(){
 		return false;	
 	};
 
-	if(typeof JSON === "undefined"){
-		var JSON = {};
-		if (typeof JSON.stringify !== 'function') {
-
-		}
-
-		if (typeof JSON.parse !== 'function') {
-
-		}
-	}
-
 	var toJSON = function (object) {
 		if(typeof(JSON) !== 'undefined' && typeof(JSON.stringify) !== 'function') {
 			return JSON.stringify(object);

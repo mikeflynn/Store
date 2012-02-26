@@ -2,6 +2,11 @@ var Store = (function(){
 	var default_ttl = 3600;
 	var ns = {'settings':1, 'cache':1};
 
+	if(window['localStorage'] === null) {
+		// If you don't have localStorage, then die.
+		return false;
+	}
+
 	var is_namespace = function(namespace) {
 		if(ns.hasOwnProperty(namespace)) {
 			return true;
@@ -45,7 +50,6 @@ var Store = (function(){
 			var d = new Date();
 			ttl = d.getTime() + (ttl_seconds * 1000);
 		}
-
 
 		data[key] = {
 			'data': value,

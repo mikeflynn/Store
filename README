@@ -3,6 +3,8 @@ Store: A simple javascript wrapper for local storage
 
 Specifically, Store is a javascript object wrapper for local storage which is geared towards caching (temp data) and saving of settings (perm data).
 
+I made this originally for a Google Chrome Extension I was working on, so there's a lot of cross browser features missing from this. In the future I hope to add those. 
+
 Usage:
 ------
 

@@ -108,29 +108,48 @@ var Store = (function(){
 		return false;	
 	};
 
-	var toJSON = function (object) {
-		var json = new Array();
-		for(var index in object) {
-			type = typeof(object[index]);
-			if(type == 'object'){
-				json.push('"'+index+'":' + toJSON(object[index]));
-			} else if(type == 'string') {
-				var cleaned_string = object[index].replace(/(?!\\)\"/g,'\\"').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\r/g, '\\r');
-				json.push('"'+index+'":' + '"'+cleaned_string+'"');
-			} else if(type == 'boolean' || type == 'number') {
-				json.push('"'+index+'":' +object[index]);
-			}
-		}
-		string = '{' + json.join(',') + '}';
+	if(typeof JSON === "undefined"){
+		var JSON = {};
+		if (typeof JSON.stringify !== 'function') {
 
-		return string;
+		}
+
+		if (typeof JSON.parse !== 'function') {
+
+		}
+	}
+
+	var toJSON = function (object) {
+		if(typeof(JSON) !== 'undefined' && typeof(JSON.stringify) !== 'function') {
+			return JSON.stringify(object);
+		} else {
+			var json = new Array();
+			for(var index in object) {
+				type = typeof(object[index]);
+				if(type == 'object'){
+					json.push('"'+index+'":' + toJSON(object[index]));
+				} else if(type == 'string') {
+					var cleaned_string = object[index].replace(/(?!\\)\"/g,'\\"').replace(/\n/g,'\\n').replace(/\t/g,'\\t').replace(/\r/g, '\\r');
+					json.push('"'+index+'":' + '"'+cleaned_string+'"');
+				} else if(type == 'boolean' || type == 'number') {
+					json.push('"'+index+'":' +object[index]);
+				}
+			}
+			string = '{' + json.join(',') + '}';
+
+			return string;
+		}
 	};
 
 	var fromJSON = function(json) {
-		try {
-			return eval('('+json+')');
-		} catch (e) {
-			return json;
+		if(typeof(JSON) !== 'undefined' && typeof(JSON.parse) !== 'function') {
+			return JSON.parse(json);
+		} else {		
+			try {
+				return eval('('+json+')');
+			} catch (e) {
+				return json;
+			}
 		}
 	};
 

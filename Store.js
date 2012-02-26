@@ -76,7 +76,6 @@ var Store = (function(){
 	var remove = function(namespace, key) {
 		var cache = get_namespace_data(namespace);
 		if(cache.hasOwnProperty(key)) {
-			console.log("FOUND IT!");
 			delete cache[key];
 			set_namespace_data(namespace, cache);
 			return true;

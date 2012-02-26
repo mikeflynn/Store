@@ -17,7 +17,7 @@ var Store = (function(){
 
 	var get_namespace_data = function(namespace) {
 		if(is_namespace(namespace)) {
-			var obj = window.localStorage[namespace];
+			var obj = window.localStorage.getItem(namespace);
 			if(obj) {
 				return fromJSON(obj);
 			}
@@ -28,7 +28,7 @@ var Store = (function(){
 
 	var set_namespace_data = function(namespace, obj) {
 		if(is_namespace(namespace)) {
-			window.localStorage[namespace] = toJSON(obj);
+			window.localStorage.setItem(namespace, toJSON(obj));
 			return true;
 		}
 
